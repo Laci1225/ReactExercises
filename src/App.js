@@ -15,45 +15,37 @@ function App() {
         });*/
         todoArray.push(todoElement);
         todoArray.sort((a, b) => {
-            return a.date - b.date;
+            return new Date(a.date) - new Date(b.date);
         });
 
         const todoField = document.querySelector('.todo-fields');
         todoField.innerHTML = "";
-        console.log(todoArray)
-        console.log(todoField);
         for (let i = 0; i < todoArray.length; i++) {
-            const todoFiel = document.createElement("div");
-            todoFiel.classList.add("flexx");
-            todoFiel.innerHTML = `<div class="inpText" data-id=${id++}>${todoArray[i].text}</div>
+            const todoF = document.createElement("div");
+            todoF.classList.add("flexx");
+            todoF.innerHTML = `<div class="inpText" data-id=${todoArray[i].id}>${todoArray[i].text}</div>
                     <div class="inpDate">${todoArray[i].date}</div>
                     <button class="remove-todo">Remove</button>`;
-            todoField.appendChild(todoFiel);
-            /*<div className="flexx">
-                <div className="inpText" data-id={id++}>${todoArray[i].text}</div>
-                <div className="inpDate">${todoArray[i].date}</div>
-                <button className="remove-todo">Remove</button>
-            </div>*/
+            todoField.appendChild(todoF);
         }
         console.log(todoField);
 
-        /*const rmButtons = document.querySelectorAll(".remove-todo");
+        const rmButtons = document.querySelectorAll(".remove-todo");
         rmButtons.forEach(item => item.addEventListener('click', event => {
-            const handleButtonClick = (event) => {
-                return  event.target.parentElement;
-            };
-            const containerDiv = handleButtonClick();
+            const containerDiv = event.target.parentElement;
             for (let i = 0; i < todoArray.length; i++) {
-                if (todoArray[i].getAttribute("data-id") === containerDiv.getAttribute("data-id")) {
+                if (todoArray[i].id === parseInt(containerDiv.children[0].getAttribute("data-id"))) {
                     todoArray.splice(i, 1);
                     break;
                 }
             }
             containerDiv.remove();
-        }));*/
+        }));
+
 
     }
     const add = () => {
+        //<AddFields insertTodoInOrder={insertTodoInOrder()} />
         const todoText = document.querySelector("#todoText").value;
         const todoDate = document.querySelector("#todoDate").value;
         /*(
@@ -65,7 +57,8 @@ function App() {
         )*/
         const data = {
             text: todoText,
-            date: todoDate
+            date: todoDate,
+            id: id++
         }
         insertTodoInOrder(data);
     }

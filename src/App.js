@@ -4,33 +4,27 @@ import InputFields from "./components/InputFields";
 import {useState} from "react";
 import AddFields from "./components/AddFields";
 
-
-let id = 0;
-
 function App() {
-    //let todoArray = [];
     const [todoArray, setTodoArray] = useState([]);
+    const [id, setId] = useState(0);
 
-    const add = () => {
-        const todoText = document.querySelector("#todoText").value;
-        const todoDate = document.querySelector("#todoDate").value;
-        const data = {
-            text: todoText,
-            date: todoDate,
-            id: id++
-        }
-        console.log(data);
+    const add = (data) => {
         setTodoArray((prevState) => {
             let a = [...prevState, data];
             return a.sort((a, b) => {
                 return new Date(a.date) - new Date(b.date);
             });
         });
+        handleIdIncrease();
+        console.log(data);
     }
+    const handleIdIncrease = () => {
+        setId(prevState => prevState + 1);
+    };
     return (
         <div className="App">
             <Header count={todoArray.length}/>
-            <InputFields add={add}/>
+            <InputFields add={add} id={id}/>
             <AddFields tdArray={todoArray}/>
         </div>
     );

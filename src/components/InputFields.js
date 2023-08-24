@@ -19,6 +19,8 @@ export default function InputFields(props) {
             <div><label htmlFor="todoDate"></label>
                 <input id="todoDate" type="date"
                        onChange={handleDateChange}/></div>
-            <AddButton add={props.add} textValue={inputText} dateValue={inputDate} id={props.id}/>
+            <AddButton onClick={() => {
+                props.onAdd({text: inputText, date: inputDate})
+            }}/>
         </div>)
 }

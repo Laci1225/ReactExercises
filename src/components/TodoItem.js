@@ -1,4 +1,4 @@
-export default function AddFields2(props) {
+export default function TodoItem(props) {
     return (
         <div className="flexx">
             <div className="inpText" data-id={props.todo.id}>{props.todo.text}</div>
